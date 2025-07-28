@@ -2,26 +2,37 @@ using UnityEngine;
 
 public class OrbPointer : MonoBehaviour
 {
-    public LayerMask orbLayer; // Assign "Orb" layer
+    public LayerMask orbLayer;
     public float maxDistance = 10f;
 
     void Update()
     {
-        // Use right controller forward direction
-        Transform hand = GameObject.Find("RightHandAnchor").transform;
+        // Get both hand anchors
+        Transform rightHand = GameObject.Find("RightHandAnchor")?.transform;
+        Transform leftHand = GameObject.Find("LeftHandAnchor")?.transform;
 
-        if (OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
+        // Right-hand trigger
+        if (rightHand != null && OVRInput.GetDown(OVRInput.Button.PrimaryIndexTrigger))
         {
-            Ray ray = new Ray(hand.position, hand.forward);
-            RaycastHit hit;
+            CastRayFromHand(rightHand);
+        }
 
-            if (Physics.Raycast(ray, out hit, maxDistance, orbLayer))
+        // Left-hand trigger
+        if (leftHand != null && OVRInput.GetDown(OVRInput.Button.SecondaryIndexTrigger))
+        {
+            CastRayFromHand(leftHand);
+        }
+    }
+
+    void CastRayFromHand(Transform hand)
+    {
+        Ray ray = new Ray(hand.position, hand.forward);
+        if (Physics.Raycast(ray, out RaycastHit hit, maxDistance, orbLayer))
+        {
+            OrbInstrument orb = hit.collider.GetComponent<OrbInstrument>();
+            if (orb != null)
             {
-                var orb = hit.collider.GetComponent<OrbInstrument>();
-                if (orb != null)
-                {
-                    orb.PlayFromPointer();
-                }
+                orb.PlayFromPointer();
             }
         }
     }

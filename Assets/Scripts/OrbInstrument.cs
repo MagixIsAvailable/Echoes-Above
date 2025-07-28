@@ -50,9 +50,19 @@ public class OrbInstrument : MonoBehaviour
         BackgroundColorController bg = FindObjectOfType<BackgroundColorController>();
         if (bg != null)
         {
+            // Choose gradient based on orb color or index
             Color orbColor = orbRenderer.material.GetColor("_EmissionColor");
-            bg.SetNewBackgroundColor(orbColor);
+            BackgroundColorController.GradientSet selected = bg.blueTurquoise;
+
+            // Simple mapping (you can refine this)
+            if (orbColor.r > 0.9f && orbColor.g > 0.7f) selected = bg.yellowOrange; // Yellow/Orange
+            else if (orbColor.b > 0.8f && orbColor.g > 0.7f) selected = bg.blueTurquoise; // Blues
+            else if (orbColor.b > 0.8f && orbColor.r > 0.6f) selected = bg.violet; // Violet
+            else if (orbColor.g > 0.7f && orbColor.r < 0.6f) selected = bg.green; // Green
+
+            bg.SetGradient(selected);
         }
+
 
         // Trigger cached swarm orb reactions
         if (cachedSwarmOrbs != null)

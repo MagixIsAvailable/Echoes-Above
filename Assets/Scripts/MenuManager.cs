@@ -5,7 +5,7 @@ public class MenuManager : MonoBehaviour
 {
     public void StartExperience()
     {
-        SceneManager.LoadScene("MainScene"); // Replace with your main scene name
+        SceneManager.LoadScene("Main Scene"); // Replace with your main scene name
     }
 
     public void QuitApp()

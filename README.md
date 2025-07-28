@@ -1,10 +1,8 @@
-
-
 Echoes  Above
 An immersive VR experience designed to promote calmness, focus, and emotional well-being through interactive sound and visuals.
 
 Overview
-Sky Resonance VR places the user on a floating platform above the clouds, surrounded by interactive glowing orbs.
+Echoes  Above places the user on a floating platform above the clouds, surrounded by interactive glowing orbs.
 Each orb plays a calming steel drum tone when touched or pointed at with the controllers.
 
 The experience combines:
